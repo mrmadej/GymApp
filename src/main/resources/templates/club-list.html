@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html lang = "en" xmlns:th = "http://www.thymeleaf.org">
+  <head>
+    <meta charset = "UTF-8">
+    <meta name = "viewport" content = "width=device-width, initial-scale = 1, shrink-to-fit = no">
+
+    <!-- Bootstrap CSS -->
+    <link href = "https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <title>Clubs</title>
+  </head>
+  <body>
+    <div class = "container">
+      <h3>Number of people in the clubs</h3>
+      <hr>
+
+      <table class = "table table-bordered table-striped">
+        <thead class = "table-dark">
+          <tr>
+            <th>Club Name</th>
+            <th>Club Address</th>
+            <th>Currently in the Club</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr th:each = "club : ${clubs}">
+            <td>
+              <a th:text="${club.clubName}" th:href="@{/Clubs/getAvgWeek(clubId=${club.id})}"></a>
+            </td>
+            <td th:text = "${club.clubAddress}" />
+            <td th:text = "${club.getLastInClub()}" />
+          </tr>
+        </tbody>
+
+      </table>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html lang = "en" xmlns:th = "http://www.thymeleaf.org">
+<head>
+    <meta charset = "UTF-8">
+    <meta name = "viewport" content = "width=device-width, initial-scale = 1, shrink-to-fit = no">
+
+    <!-- Bootstrap CSS -->
+    <link href = "https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <title th:text = "${club.clubName}"></title>
+</head>
+<body>
+<div class = "container">
+    <h3>Average count of people in: <span th:text = "${club.clubName}"></span></h3>
+    <hr>
+
+    <table class = "table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Hour</th>
+                <th>Sunday</th>
+                <th>Monday</th>
+                <th>Tuesday</th>
+                <th>Wednesday</th>
+                <th>Thursday</th>
+                <th>Friday</th>
+                <th>Saturday</th>
+
+                <!-- Dodaj kolumny dla pozostałych dni tygodnia -->
+            </tr>
+        </thead>
+
+        <tbody>
+            <!-- Iteruj po godzinach -->
+            <tr th:each="hour : ${#numbers.sequence(0, 23)}">
+                <td th:text="${hour} + ':00'"></td>
+                <!-- Iteruj po dniach tygodnia -->
+                <!--<td th:each="day : ${#numbers.sequence(1, 7)}">-->
+                <td th:each="day : ${averages}">
+                    <!-- Pobierz wartość dla danej godziny i danego dnia -->
+                    <!--<td th:if="${averages.containsKey(day) and averages[day].size() > hour}">-->
+                    <span th:text="${day.value[hour]}"></span>
+                    <!-- </td>-->
+                <!-- W przeciwnym razie wyświetl puste pole
+                <td th:unless="${averages.containsKey(day) and averages[day].size() > hour}"></td>-->
+                </td>
+            </tr>
+        </tbody>
+
+    </table>
+
+    <a th:href="@{/Clubs/lastCount}"
+       class="btn btn-danger btn-sm">
+        Go to Main Page
+    </a>
+    <a th:href="@{/Clubs/getAvg(clubId=${club.id})}"
+       class="btn btn-danger btn-sm">
+        Go to Hour Average of the day
+    </a>
+    <a th:href="@{/Clubs/find(id=${club.id})}"
+       class="btn btn-danger btn-sm">
+        Get specific day average
+    </a>
+</div>
+</body>
+</html>

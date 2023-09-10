@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
+    <title>Find Specific Date</title>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h3>Find Specific Date</h3>
+    <hr>
+
+    <p class="h4 mb-4">Find</p>
+
+    <form action="#" th:action="@{/Clubs/find}"
+          method="POST">
+
+        <input type="hidden" name="id" th:value="${id}">
+
+        <input type="text" name="day" class="form-control mb-4 w-25" placeholder="Day">
+        <input type="text" name="month" class="form-control mb-4 w-25" placeholder="Month">
+        <input type="text" name="year" class="form-control mb-4 w-25" placeholder="Year">
+
+
+        <button type="submit" class="btn btn-info col-2">Find</button>
+    </form>
+
+    <hr>
+    <a th:href="@{/Clubs/getAvgWeek(clubId=${id})}">Back to Main Page</a>
+
+</div>
+
+
+</body>
+
+</html>
