@@ -75,7 +75,6 @@ public class DownloadingJson
 
                     if (jsonNode.isArray())
                     {
-                        // Jeśli JSON jest obiektem, możesz bezpiecznie parsować
                         for (final JsonNode objNode : jsonNode)
                         {
                             usersCountCurrentlyInCLub = objNode.get("UsersCountCurrentlyInClub").asInt();
@@ -85,8 +84,12 @@ public class DownloadingJson
                                 clubAddress = objNode.get("ClubAddress").asText();
                                 hourOfDownload = LocalDateTime.now();
 
-
                                 Club tempClub = clubService.FindByClubName(clubName);
+                                if(tempClub == null)
+                                {
+                                    tempClub = new Club(clubName, clubAddress);
+                                }
+
                                 InClub tempInClub = new InClub(usersCountCurrentlyInCLub, hourOfDownload);
 
                                 tempInClub.setClub(tempClub);
@@ -125,15 +128,12 @@ public class DownloadingJson
                     String cookie = loginResponse.getFirstHeader("Set-Cookie").getValue();
                     this.accessCookie = cookie;
                 }
-
             }
-
         }
         catch (Exception e)
         {
             e.printStackTrace();
         }
-
     }
 
     private static void addHeaders(HttpRequestBase httpGet) {
